@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cimory Yogurt - Innovation in Nutrition</title>
+  <!-- Import Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+      background: #f8f9fa;
+      color: #333;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: #3b3f7e;
+      padding: 20px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .navbar-logo img {
+      height: 45px;
+      transition: transform 0.3s ease;
+    }
+
+    .navbar-logo:hover img {
+      transform: scale(1.05);
+    }
+
+    .navbar-menu {
+      display: flex;
+      list-style: none;
+      gap: 40px;
+    }
+
+    .navbar-menu li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 16px;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .navbar-menu li a::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #e91e63;
+      transition: width 0.3s ease;
+    }
+
+    .navbar-menu li a:hover,
+    .navbar-menu li a.active {
+      color: #e91e63;
+    }
+
+    .navbar-menu li a:hover::after,
+    .navbar-menu li a.active::after {
+      width: 100%;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      position: relative;
+      height: 100vh;
+      background: url("https://hidupgaya.co/wp-content/uploads/2021/03/cimory-squeeze-yogurt-2.jpeg") center center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 7vw;
+    }
+
+    /* Overlay for better text readability if needed */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: left;
+      color: #2c2f7c;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 48px;
+      border-radius: 24px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      animation: fadeInRight 1s ease-out;
+    }
+
+    .hero-content h1 {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    .hero-content .subtitle {
+      font-size: 18px;
+      font-weight: 400;
+      color: #555;
+      margin-bottom: 24px;
+    }
+
+    .hero-btn {
+      padding: 12px 32px;
+      background: #e91e63;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .hero-btn:hover {
+      background: #ad1457;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3);
+    }
+
+    /* SECTIONS COMMON */
+    .section-title {
+      text-align: center;
+      font-size: 36px;
+      color: #2c2f7c;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 60px;
+    }
+
+    /* PRODUCTS SECTION */
+    .products-section {
+      padding: 100px 60px;
+      background: white;
+    }
+
+    .products-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .product-card-mini {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+      width: 260px;
+      padding: 30px 20px;
+      text-align: center;
+      transition: all 0.3s ease;
+      border: 1px solid #f0f0f0;
+    }
+
+    .product-card-mini:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 50px rgba(44, 47, 124, 0.15);
+    }
+
+    .product-mini-img {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      margin-bottom: 20px;
+    }
+
+    .product-mini-title {
+      font-weight: 600;
+      color: #2c2f7c;
+      margin-bottom: 8px;
+      font-size: 16px;
+    }
+
+    .product-mini-desc {
+      color: #666;
+      font-size: 14px;
+    }
+
+    /* ABOUT SECTION */
+    .about-section {
+      padding: 100px 60px;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+    }
+
+    .about-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about-text h2 {
+      font-size: 36px;
+      color: #2c2f7c;
+      margin-bottom: 24px;
+      font-weight: 700;
+    }
+
+    .about-text p {
+      color: #555;
+      line-height: 1.8;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .about-image {
+      background: white;
+      border-radius: 24px;
+      padding: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .about-image img {
+      max-width: 100%;
+      border-radius: 12px;
+      height: 150px;
+    }
+
+    /* ARTICLES SECTION */
+    .articles-section {
+      padding: 100px 60px;
+      background: white;
+    }
+
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .article-card {
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: 0 10px 40px rgba(44, 47, 124, 0.08);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      border: 1px solid #f0f0f0;
+    }
+
+    .article-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 60px rgba(44, 47, 124, 0.15);
+    }
+
+    .article-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: #e9e9f7;
+    }
+
+    .article-content {
+      padding: 28px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .article-content h3 {
+      color: #2c2f7c;
+      margin-bottom: 12px;
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .article-content p {
+      color: #666;
+      font-size: 15px;
+      margin-bottom: 20px;
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    /* FOOTER */
+    .footer {
+      background: #2c2f7c;
+      color: white;
+      padding: 80px 60px 30px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+
+    .footer-section h3 {
+      margin-bottom: 24px;
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .footer-section p,
+    .footer-section a {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 12px;
+      transition: color 0.3s ease;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .footer-section a:hover {
+      color: #e91e63;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 14px;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeInRight {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .navbar {
+        padding: 15px 30px;
+      }
+
+      .hero {
+        padding-right: 0;
+        justify-content: center;
+      }
+
+      .hero-content {
+        margin: 0 20px;
+        padding: 32px;
+      }
+
+      .hero-content h1 {
+        font-size: 36px;
+      }
+
+      .about-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .section-title {
+        font-size: 30px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar {
+        padding: 15px 20px;
+      }
+
+      .navbar-menu {
+        gap: 20px;
+      }
+
+      .navbar-menu li a {
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-logo">
+      <a href="Beranda.html" class="nav-link active">
+        <img src="https://cimory.com/assets/img/logo_cimory.png" alt="Cimory Logo" />
+      </a>
+    </div>
+    <ul class="navbar-menu">
+      <li><a href="Beranda.html" class="nav-link active">Beranda</a></li>
+      <li><a href="Profile.html" class="nav-link">Profil</a></li>
+      <li><a href="Artikel.html" class="nav-link">Artikel</a></li>
+      <li><a href="Galeri.html" class="nav-link">Galeri</a></li>
+      <li><a href="BukuTamu.html" class="nav-link">Buku Tamu</a></li>
+      <li><a href="TentangKami.html" class="nav-link">Tentang</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero" id="beranda">
+    <div class="hero-content">
+      <h1>Cimory Yogurt</h1>
+      <div class="subtitle">Nikmati Kebaikan Yogurt Setiap Hari</div>
+      <a href="#produk" class="hero-btn">Lihat Produk</a>
+    </div>
+  </section>
+
+  <!-- PRODUCTS SECTION -->
+  <section class="products-section" id="produk">
+    <h2 class="section-title">Produk Yogurt Cimory</h2>
+    <p class="section-subtitle">
+      Nikmati kelezatan dan kesehatan dalam setiap tegukan
+    </p>
+    <div class="products-grid">
+      <div class="product-card-mini">
+        <img src="https://ik.imagekit.io/dcjlghyytp1/2ad49c1a15c10fb2c41741ac4ffd600f?tr=f-auto,w-360"
+          alt="Yogurt Drink" class="product-mini-img" />
+        <div class="product-mini-title">Cimory Yogurt Drink</div>
+        <div class="product-mini-desc">Segar, banyak pilihan rasa</div>
+      </div>
+
+      <div class="product-card-mini">
+        <img src="https://cimory.com/uploads/products/yogurt_0014_250-ml-STRAWBERRY_2.jpg" alt="Greek Yogurt"
+          class="product-mini-img" />
+        <div class="product-mini-title">Cimory Greek Yogurt</div>
+        <div class="product-mini-desc">Kental, tinggi protein</div>
+      </div>
+
+      <div class="product-card-mini">
+        <img src="https://cimory.com/uploads/products/yogurt_0026_CYD-250ml-(Low-Fat---New-Design)-Tropical-Fruit.jpg"
+          alt="Yogurt Squeeze" class="product-mini-img" />
+        <div class="product-mini-title">Cimory Squeeze</div>
+        <div class="product-mini-desc">Praktis dibawa kemana saja</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT SECTION -->
+  <section class="about-section" id="tentang">
+    <div class="about-content">
+      <div class="about-text">
+        <h2>Tentang Cimory</h2>
+        <p>
+          Cimory adalah brand terkemuka di Indonesia yang berkomitmen
+          menghadirkan produk susu dan yogurt berkualitas tinggi untuk
+          kesehatan keluarga Indonesia.
+        </p>
+        <p>
+          Dengan inovasi berkelanjutan dan standar kualitas internasional,
+          kami menghadirkan produk yang tidak hanya lezat tetapi juga bergizi
+          tinggi.
+        </p>
+        <p>
+          Setiap produk Cimory diproduksi dengan teknologi modern dan
+          bahan-bahan pilihan terbaik untuk memastikan kesegaran dan kualitas
+          yang optimal.
+        </p>
+      </div>
+      <div class="about-image">
+        <img src="https://cimory.com/uploads/products/banner_category_AGKRCM1701076241.jpg" alt="Cimory Tentang" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTICLES SECTION -->
+  <section class="articles-section" id="artikel">
+    <h2 class="section-title">Artikel & Tips</h2>
+    <p class="section-subtitle">
+      Informasi menarik seputar yogurt, kesehatan, dan Cimory
+    </p>
+    <div class="articles-grid">
+      <div class="article-card">
+        <img class="article-img" src="https://cimory.com/uploads/news/CL102032.JPG"
+          alt="Cimory Raih Pengakuan Forbes Asia" />
+        <div class="article-content">
+          <h3>
+            Cimory Raih Pengakuan Forbes Asia Best Under A Billion
+          </h3>
+          <p>
+            Cimory kembali meraih pengakuan sebagai salah satu perusahaan terbaik versi Forbes Asia.
+          </p>
+        </div>
+      </div>
+
+      <div class="article-card">
+        <img class="article-img" src="https://cimory.com/uploads/news/ICS%20Awards%202.png"
+          alt="Cimory Raih Gold Winner" />
+        <div class="article-content">
+          <h3>
+            Cimory Raih Gold Winner Indonesia Corporate Sustainability
+          </h3>
+          <p>
+            Apresiasi atas komitmen perusahaan dalam keberlanjutan dan inovasi.
+          </p>
+        </div>
+      </div>
+
+      <div class="article-card">
+        <img class="article-img" src="https://cimory.com/uploads/news/Top%20CEO.jpg" alt="CEO Cimory Group" />
+        <div class="article-content">
+          <h3>
+            CEO Cimory Group Diapresiasi sebagai The Visionary Leader
+          </h3>
+          <p>
+            Penghargaan untuk inovasi produk yang berdampak positif bagi industri.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="kontak">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Cimory</h3>
+        <p>Innovation in Nutrition</p>
+        <p>
+          Menghadirkan produk berkualitas untuk kesehatan keluarga Indonesia.
+        </p>
+      </div>
+      <div class="footer-section">
+        <h3>Produk</h3>
+        <a href="#produk">Yogurt Drink</a>
+        <a href="#produk">Greek Yogurt</a>
+        <a href="#produk">Yogurt Squeeze</a>
+      </div>
+      <div class="footer-section">
+        <h3>Perusahaan</h3>
+        <a href="#tentang">Tentang Kami</a>
+        <a href="#">Karir</a>
+        <a href="#">Berita</a>
+      </div>
+      <div class="footer-section">
+        <h3>Kontak</h3>
+        <a href="BukuTamu.html">Buku Tamu</a>
+        <p>Email: info@cimory.com</p>
+        <p>Telepon: (021) 123-4567</p>
+        <p>Jakarta, Indonesia</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 Cimory. All Rights Reserved.</p>
+    </div>
+  </footer>
+</body>
+
+</html>

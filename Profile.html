@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profil Tim - Cimory</title>
+  <!-- Import Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+      background-color: #f8f9fa;
+      /* Standard light background */
+      color: #333;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: #3b3f7e;
+      /* Solid background matches other pages */
+      padding: 20px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .navbar-logo img {
+      height: 45px;
+      transition: transform 0.3s ease;
+    }
+
+    .navbar-logo:hover img {
+      transform: scale(1.05);
+    }
+
+    .navbar-menu {
+      display: flex;
+      list-style: none;
+      gap: 40px;
+    }
+
+    .navbar-menu li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 16px;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .navbar-menu li a::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #e91e63;
+      transition: width 0.3s ease;
+    }
+
+    .navbar-menu li a:hover,
+    .navbar-menu li a.active {
+      color: #e91e63;
+    }
+
+    .navbar-menu li a:hover::after,
+    .navbar-menu li a.active::after {
+      width: 100%;
+    }
+
+    /* MAIN SECTION */
+    .profile-section {
+      padding: 140px 20px 80px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+      animation: fadeInDown 1s ease-out;
+    }
+
+    .section-title {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #2c2f7c;
+      /* Brand Dark Blue */
+    }
+
+    .section-subtitle {
+      font-size: 18px;
+      color: #666;
+    }
+
+    /* PROFILE CARDS CONTAINER */
+    .profiles-container {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    /* CLEAN CARD DESIGN */
+    .profile-card {
+      background: white;
+      border-radius: 24px;
+      padding: 40px;
+      width: 380px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      animation: fadeInUp 1s ease-out backwards;
+      border: 1px solid #f0f0f0;
+    }
+
+    .profile-card:nth-child(1) {
+      animation-delay: 0.2s;
+    }
+
+    .profile-card:nth-child(2) {
+      animation-delay: 0.4s;
+    }
+
+    .profile-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 60px rgba(44, 47, 124, 0.15);
+    }
+
+    .profile-img-box {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      margin-bottom: 24px;
+    }
+
+    .profile-img-box::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      background: linear-gradient(135deg, #e91e63, #3b3f7e);
+      border-radius: 50%;
+      z-index: 1;
+      /* No spin animation for cleaner look, just simple gradient border */
+    }
+
+    .profile-img {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid white;
+      z-index: 2;
+      background: #fff;
+    }
+
+    .profile-name {
+      color: #2c2f7c;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    .profile-role {
+      color: #e91e63;
+      background: rgba(233, 30, 99, 0.1);
+      padding: 6px 16px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .profile-details {
+      width: 100%;
+      background: #f8f9fa;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 24px;
+      border: 1px solid #e9ecef;
+    }
+
+    .detail-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: #555;
+      border-bottom: 1px solid #e9ecef;
+      padding-bottom: 8px;
+    }
+
+    .detail-item:last-child {
+      margin-bottom: 0;
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .detail-label {
+      font-weight: 600;
+      color: #2c2f7c;
+    }
+
+    .profile-bio {
+      color: #666;
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    /* SOCIAL MEDIA BUTTONS */
+    .social-buttons {
+      display: flex;
+      gap: 16px;
+    }
+
+    .social-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #f1f3f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #2c2f7c;
+      font-size: 18px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .social-btn:hover {
+      background: #e91e63;
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .profiles-container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .navbar {
+        padding: 15px 30px;
+      }
+
+      .section-title {
+        font-size: 36px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar {
+        padding: 15px 20px;
+      }
+
+      .navbar-menu {
+        gap: 20px;
+      }
+
+      .navbar-menu li a {
+        font-size: 13px;
+      }
+
+      .profile-card {
+        width: 100%;
+        padding: 30px 20px;
+      }
+
+      .section-title {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-logo">
+      <a href="Beranda.html" class="nav-link active">
+        <img src="https://cimory.com/assets/img/logo_cimory.png" alt="Cimory Logo" />
+      </a>
+    </div>
+    <ul class="navbar-menu">
+      <li><a href="Beranda.html" class="nav-link">Beranda</a></li>
+      <li><a href="Profile.html" class="nav-link active">Profil</a></li>
+      <li><a href="Artikel.html" class="nav-link">Artikel</a></li>
+      <li><a href="Galeri.html" class="nav-link">Galeri</a></li>
+      <li><a href="BukuTamu.html" class="nav-link">Buku Tamu</a></li>
+      <li><a href="TentangKami.html" class="nav-link">Tentang</a></li>
+    </ul>
+  </nav>
+
+  <!-- CONTENT SECTION -->
+  <section class="profile-section">
+    <div class="section-header">
+      <h1 class="section-title">Tim Kami</h1>
+      <p class="section-subtitle">Orang-orang dibalik pengembangan website Cimory (Tugas - Daskom)</p>
+    </div>
+
+    <div class="profiles-container">
+      <!-- CARD 1 -->
+      <div class="profile-card">
+        <div class="profile-img-box">
+          <img
+            src="./photos/IMG_8133.jpg"
+            onerror="this.src='https://randomuser.me/api/portraits/women/44.jpg'" alt="Ainnaya" class="profile-img" />
+        </div>
+        <h2 class="profile-name">Ainnaya Respati Putri</h2>
+
+        <div class="profile-details">
+          <div class="detail-item">
+            <span class="detail-label">NIM</span>
+            <span>A11.2025.16358</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Kelompok</span>
+            <span>4110</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Contact Person </span>
+            <span>082197325132</span>
+          </div>
+        </div>
+
+
+        <div class="social-buttons">
+          <a href="#" class="social-btn" title="Instagram">📷</a>
+          <a href="#" class="social-btn" title="LinkedIn">💼</a>
+          <a href="#" class="social-btn" title="GitHub">💻</a>
+        </div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="profile-card">
+        <div class="profile-img-box">
+          <img src="./photos/foto formal.png"
+            onerror="this.src='https://randomuser.me/api/portraits/men/32.jpg'" alt="Juan" class="profile-img" />
+        </div>
+        <h2 class="profile-name">Juan Richard Samarera Sabarofek</h2>
+        
+
+        <div class="profile-details">
+          <div class="detail-item">
+            <span class="detail-label">NIM</span>
+            <span>A11.2025.16445</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Kelompok</span>
+            <span>4110</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Contact Person </span>
+            <span>082197325132</span>
+          </div>
+
+        </div>
+        
+
+        <div class="social-buttons">
+          <a href="#" class="social-btn" title="Instagram">📷</a>
+          <a href="#" class="social-btn" title="LinkedIn">💼</a>
+          <a href="#" class="social-btn" title="Dribbble">🎨</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+
+</html>

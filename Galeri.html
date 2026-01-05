@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Produk Cimory</title>
+  <!-- Import Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+      background: #f8f9fa;
+      color: #333;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: #3b3f7e;
+      padding: 20px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .navbar-logo img {
+      height: 45px;
+      transition: transform 0.3s ease;
+    }
+
+    .navbar-logo:hover img {
+      transform: scale(1.05);
+    }
+
+    .navbar-menu {
+      display: flex;
+      list-style: none;
+      gap: 40px;
+    }
+
+    .navbar-menu li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 16px;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .navbar-menu li a::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #e91e63;
+      transition: width 0.3s ease;
+    }
+
+    .navbar-menu li a:hover,
+    .navbar-menu li a.active {
+      color: #e91e63;
+    }
+
+    .navbar-menu li a:hover::after,
+    .navbar-menu li a.active::after {
+      width: 100%;
+    }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding: 140px 60px 60px;
+      text-align: center;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+    }
+
+    .section-title {
+      font-size: 48px;
+      color: #2c2f7c;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+
+    .section-subtitle {
+      font-size: 18px;
+      color: #666;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* PRODUCTS SECTION */
+    .products-section {
+      padding: 80px 60px;
+      background: #ffffff;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 10px 40px rgba(44, 47, 124, 0.08);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      border: 1px solid #f0f0f0;
+      cursor: pointer;
+    }
+
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 60px rgba(44, 47, 124, 0.15);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 320px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: #fcfcfc;
+      padding: 20px;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+    }
+
+    .product-card:hover .product-image img {
+      transform: scale(1.05);
+    }
+
+    .product-info {
+      padding: 24px 30px 30px;
+      text-align: center;
+      border-top: 1px solid #f0f0f0;
+    }
+
+    .product-info h3 {
+      font-size: 22px;
+      color: #2c2f7c;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .product-info p {
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 0;
+      font-size: 15px;
+    }
+
+    /* FOOTER */
+    .footer {
+      background: #2c2f7c;
+      color: white;
+      padding: 80px 60px 30px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+
+    .footer-section h3 {
+      margin-bottom: 24px;
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .footer-section p,
+    .footer-section a {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 12px;
+      transition: color 0.3s ease;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .footer-section a:hover {
+      color: #e91e63;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 14px;
+    }
+
+    /* MODAL STYLES */
+    .modal-overlay {
+      visibility: hidden;
+      opacity: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 2000;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Target state for modal */
+    .modal-overlay:target {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .modal-container {
+      background: white;
+      border-radius: 24px;
+      max-width: 900px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      transform: scale(0.9) translateY(20px);
+      transition: transform 0.3s ease;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Animation when modal is active */
+    .modal-overlay:target .modal-container {
+      transform: scale(1) translateY(0);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.95);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: #2c2f7c;
+      transition: all 0.3s ease;
+      z-index: 10;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      text-decoration: none;
+    }
+
+    .modal-close:hover {
+      background: #e91e63;
+      color: white;
+      transform: rotate(90deg);
+    }
+
+    .modal-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    .modal-image {
+      background: #fcfcfc;
+      padding: 60px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 24px 0 0 24px;
+    }
+
+    .modal-image img {
+      width: 100%;
+      height: auto;
+      max-height: 500px;
+      object-fit: contain;
+    }
+
+    .modal-details {
+      padding: 60px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .modal-details h2 {
+      font-size: 32px;
+      color: #2c2f7c;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+
+    .modal-price {
+      font-size: 28px;
+      color: #e91e63;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    .modal-description {
+      color: #666;
+      line-height: 1.8;
+      margin-bottom: 30px;
+      font-size: 16px;
+    }
+
+    .modal-info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 30px;
+      padding: 24px;
+      background: #f8f9fa;
+      border-radius: 16px;
+    }
+
+    .modal-info-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-info-label {
+      font-size: 13px;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .modal-info-value {
+      font-size: 16px;
+      color: #333;
+      font-weight: 600;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .modal-btn {
+      flex: 1;
+      padding: 16px 24px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Poppins', sans-serif;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-btn-primary {
+      background: linear-gradient(135deg, #e91e63 0%, #d81b60 100%);
+      color: white;
+      box-shadow: 0 4px 16px rgba(233, 30, 99, 0.3);
+    }
+
+    .modal-btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(233, 30, 99, 0.4);
+    }
+
+    .modal-btn-secondary {
+      background: white;
+      color: #2c2f7c;
+      border: 2px solid #2c2f7c;
+    }
+
+    .modal-btn-secondary:hover {
+      background: #2c2f7c;
+      color: white;
+    }
+
+    /* Make the whole card a link but keep style */
+    .product-card-link {
+      text-decoration: none;
+      color: inherit;
+      display: contents;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .navbar {
+        padding: 15px 30px;
+      }
+
+      .section-title {
+        font-size: 36px;
+      }
+
+      .products-section {
+        padding: 60px 30px;
+      }
+
+      .page-header {
+        padding: 120px 30px 40px;
+      }
+
+      .modal-content {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-image {
+        border-radius: 24px 24px 0 0;
+        padding: 40px 20px;
+      }
+
+      .modal-details {
+        padding: 40px 30px;
+      }
+
+      .modal-details h2 {
+        font-size: 26px;
+      }
+
+      .modal-price {
+        font-size: 24px;
+      }
+
+      .modal-info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar {
+        padding: 15px 20px;
+      }
+
+      .navbar-menu {
+        gap: 20px;
+      }
+
+      .navbar-menu li a {
+        font-size: 13px;
+      }
+
+      .section-title {
+        font-size: 28px;
+      }
+
+      .modal-actions {
+        flex-direction: column;
+      }
+
+      .modal-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-logo">
+      <a href="Beranda.html" class="nav-link active">
+        <img src="https://cimory.com/assets/img/logo_cimory.png" alt="Cimory Logo" />
+      </a>
+    </div>
+    <ul class="navbar-menu">
+      <li><a href="Beranda.html" class="nav-link">Beranda</a></li>
+      <li><a href="Profile.html" class="nav-link">Profil</a></li>
+      <li><a href="Artikel.html" class="nav-link">Artikel</a></li>
+      <li><a href="Galeri.html" class="nav-link active">Galeri</a></li>
+      <li><a href="BukuTamu.html" class="nav-link">Buku Tamu</a></li>
+      <li><a href="TentangKami.html" class="nav-link">Tentang</a></li>
+    </ul>
+  </nav>
+
+  <!-- HEADER -->
+  <header class="page-header">
+    <h1 class="section-title">Produk Cimory</h1>
+    <p class="section-subtitle">Temukan berbagai varian produk yogurt berkualitas terbaik untuk menemani kesegaran
+      harimu.</p>
+  </header>
+
+  <!-- PRODUCTS SECTION -->
+  <section class="products-section">
+    <div class="products-grid">
+      <!-- Product 1 -->
+      <a href="#popup-1" class="product-card-link">
+        <div class="product-card">
+          <div class="product-image">
+            <img src="https://ik.imagekit.io/dcjlghyytp1/2ad49c1a15c10fb2c41741ac4ffd600f?tr=f-auto,w-360"
+              alt="Yogurt Drink" />
+          </div>
+          <div class="product-info">
+            <h3>Cimory Yogurt Drink Mango</h3>
+            <p>Segar, manis, dan kaya rasa mangga asli.</p>
+          </div>
+        </div>
+      </a>
+
+      <!-- Product 2 -->
+      <a href="#popup-2" class="product-card-link">
+        <div class="product-card">
+          <div class="product-image">
+            <img src="https://cimory.com/uploads/products/yogurt_0014_250-ml-STRAWBERRY_2.jpg" alt="Greek Yogurt" />
+          </div>
+          <div class="product-info">
+            <h3>Cimory Yogurt Strawberry</h3>
+            <p>Tekstur kental dengan potongan buah stroberi.</p>
+          </div>
+        </div>
+      </a>
+
+      <!-- Product 3 -->
+      <a href="#popup-3" class="product-card-link">
+        <div class="product-card">
+          <div class="product-image">
+            <img
+              src="https://cimory.com/uploads/products/yogurt_0026_CYD-250ml-(Low-Fat---New-Design)-Tropical-Fruit.jpg"
+              alt="Yogurt Squeeze" />
+          </div>
+          <div class="product-info">
+            <h3>Cimory Yogurt Tropical Fruit</h3>
+            <p>Sensasi buah tropis dalam kemasan praktis.</p>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Cimory</h3>
+        <p>Innovation in Nutrition</p>
+        <p>Menghadirkan produk berkualitas untuk kesehatan keluarga Indonesia.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Produk</h3>
+        <a href="Produk.html">Yogurt Drink</a>
+        <a href="Produk.html">Greek Yogurt</a>
+        <a href="Produk.html">Yogurt Squeeze</a>
+      </div>
+      <div class="footer-section">
+        <h3>Perusahaan</h3>
+        <a href="TentangKami.html">Tentang Kami</a>
+        <a href="#">Karir</a>
+        <a href="#">Berita</a>
+      </div>
+      <div class="footer-section">
+        <h3>Kontak</h3>
+        <a href="BukuTamu.html">Buku Tamu</a>
+        <p>Email: info@cimory.com</p>
+        <p>Telepon: (021) 123-4567</p>
+        <p>Jakarta, Indonesia</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 Cimory. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- MODALS -->
+
+  <!-- Modal for Product 1 -->
+  <div class="modal-overlay" id="popup-1">
+    <div class="modal-container">
+      <a href="#" class="modal-close">&times;</a>
+      <div class="modal-content">
+        <div class="modal-image">
+          <img src="https://ik.imagekit.io/dcjlghyytp1/2ad49c1a15c10fb2c41741ac4ffd600f?tr=f-auto,w-360"
+            alt="Cimory Yogurt Drink Mango" />
+        </div>
+        <div class="modal-details">
+          <h2>Cimory Yogurt Drink Mango</h2>
+          <div class="modal-price">Rp 12.500</div>
+          <p class="modal-description">Yogurt drink dengan rasa mangga asli yang segar dan manis. Dibuat dari susu segar
+            pilihan dan buah mangga berkualitas tinggi.</p>
+          <div class="modal-info-grid">
+            <div class="modal-info-item">
+              <span class="modal-info-label">Kategori</span>
+              <span class="modal-info-value">Yogurt Drink</span>
+            </div>
+            <div class="modal-info-item">
+              <span class="modal-info-label">Ukuran</span>
+              <span class="modal-info-value">250ml</span>
+            </div>
+            <div class="modal-info-item">
+              <span class="modal-info-label">Stok</span>
+              <span class="modal-info-value">Tersedia</span>
+            </div>
+            <div class="modal-info-item">
+              <span class="modal-info-label">Rating</span>
+              <span class="modal-info-value">4.8/5.0</span>
+            </div>
+          </div>
+          <div class="modal-actions">
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Clicking outside closes -->
+    <a href="#" style="position: absolute; width: 100%; height: 100%; z-index: -1;"></a>
+  </div>
+
+  <!-- Modal for Product 2 -->
+  <div class="modal-overlay" id="popup-2">
+    <div class="modal-container">
+      <a href="#" class="modal-close">&times;</a>
+      <div class="modal-content">
+        <div class="modal-image">
+          <img src="https://cimory.com/uploads/products/yogurt_0014_250-ml-STRAWBERRY_2.jpg"
+            alt="Cimory Yogurt Strawberry" />
+        </div>
+        <div class="modal-details">
+          <h2>Cimory Yogurt Strawberry</h2>
+          <div class="modal-price">Rp 15.000</div>
+          <p class="modal-description">Greek yogurt dengan tekstur kental dan creamy, diperkaya dengan potongan buah
+            stroberi segar.</p>
+          <div class="modal-info-grid">
+            <div class="modal-info-item">
+              <span class="modal-info-label">Kategori</span>
+              <span class="modal-info-value">Greek Yogurt</span>
+            </div>
+            <div class="modal-info-item">
+              <span class="modal-info-label">Ukuran</span>
+              <span class="modal-info-value">150g</span>
+            </div>
+            <div class="modal-info-item">
+              <span class="modal-info-label">Stok</span>
+              <span class="modal-info-value">Tersedia</span>
+            </div>
+            <div class="modal-info-item">
+              <span class="modal-info-label">Rating</span>
+              <span class="modal-info-value">4.9/5.0</span>
+            </div>
+          </div>
+          <div class="modal-actions">
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="#" style="position: absolute; width: 100%; height: 100%; z-index: -1;"></a>
+  </div>
+
+  <!-- Modal for Product 3 -->
+  <div class="modal-overlay" id="popup-3">
+    <div class="modal-container">
+      <a href="#" class="modal-close">&times;</a>
+      <div class="modal-content">
+        <div class="modal-image">
+          <img src="https://cimory.com/uploads/products/yogurt_0026_CYD-250ml-(Low-Fat---New-Design)-Tropical-Fruit.jpg"
+            alt="Cimory Yogurt Tropical Fruit" />
+        </div>
+        <div class="modal-details">
+          <h2>Cimory Yogurt Tropical Fruit</h2>
+          <div class="modal-price">Rp 13.500</div>
+          <p class="modal-description">Sensasi buah tropis dalam kemasan praktis yang mudah dibawa kemana-mana.
+            Kombinasi sempurna dari berbagai buah tropis pilihan yang memberikan kesegaran maksimal.</p>
+          <div class="modal-info-grid">
+            <div class="modal-info-item">
+              <span class="modal-info-label">Kategori</span>
+              <span class="modal-info-value">Yogurt Drink</span>
+            </div>
+            <div class="modal-info-item">
+              <span class="modal-info-label">Ukuran</span>
+              <span class="modal-info-value">250ml</span>
+            </div>
+            <div class="modal-info-item">
+              <span class="modal-info-label">Stok</span>
+              <span class="modal-info-value">Tersedia</span>
+            </div>
+            <div class="modal-info-item">
+              <span class="modal-info-label">Rating</span>
+              <span class="modal-info-value">4.7/5.0</span>
+            </div>
+          </div>
+          <div class="modal-actions">
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="#" style="position: absolute; width: 100%; height: 100%; z-index: -1;"></a>
+  </div>
+</body>
+
+</html>

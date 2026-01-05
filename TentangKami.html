@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tentang Kami - Cimory</title>
+  <!-- Import Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+      background: #f8f9fa;
+      color: #333;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: #3b3f7e;
+      padding: 20px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .navbar-logo img {
+      height: 45px;
+      transition: transform 0.3s ease;
+    }
+
+    .navbar-logo:hover img {
+      transform: scale(1.05);
+    }
+
+    .navbar-menu {
+      display: flex;
+      list-style: none;
+      gap: 40px;
+    }
+
+    .navbar-menu li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 16px;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .navbar-menu li a::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #e91e63;
+      transition: width 0.3s ease;
+    }
+
+    .navbar-menu li a:hover,
+    .navbar-menu li a.active {
+      color: #e91e63;
+    }
+
+    .navbar-menu li a:hover::after,
+    .navbar-menu li a.active::after {
+      width: 100%;
+    }
+
+    /* HERO SECTION */
+    .page-header {
+      padding: 140px 60px 60px;
+      text-align: center;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+    }
+
+    .section-title {
+      font-size: 48px;
+      color: #2c2f7c;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+
+    .section-subtitle {
+      font-size: 18px;
+      color: #666;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ABOUT CONTENT */
+    .about-section {
+      padding: 80px 60px;
+      background: white;
+    }
+
+    .about-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about-text h2 {
+      font-size: 36px;
+      color: #2c2f7c;
+      margin-bottom: 24px;
+      font-weight: 700;
+    }
+
+    .about-text p {
+      color: #555;
+      line-height: 1.8;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .about-image {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    }
+
+    .about-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .about-image:hover img {
+      transform: scale(1.05);
+    }
+
+    /* VISION & MISSION */
+    .vision-section {
+      padding: 100px 60px;
+      background: #f8f9fa;
+    }
+
+    .vision-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .vision-card {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-align: center;
+      border-top: 40px solid #e91e63;
+      border-bottom: 40px solid #e91e63;
+    }
+
+    .vision-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-icon {
+      font-size: 48px;
+      margin-bottom: 24px;
+      display: inline-block;
+    }
+
+    .vision-card h3 {
+      font-size: 24px;
+      color: #2c2f7c;
+      margin-bottom: 16px;
+    }
+
+    .vision-card p {
+      color: #666;
+      line-height: 1.6;
+    }
+
+    /* FOOTER */
+    .footer {
+      background: #2c2f7c;
+      color: white;
+      padding: 80px 60px 30px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+
+    .footer-section h3 {
+      margin-bottom: 24px;
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .footer-section p,
+    .footer-section a {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 12px;
+      transition: color 0.3s ease;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .footer-section a:hover {
+      color: #e91e63;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 14px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .navbar {
+        padding: 15px 30px;
+      }
+
+      .section-title {
+        font-size: 36px;
+      }
+
+      .about-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .page-header {
+        padding: 120px 30px 40px;
+      }
+
+      .about-section,
+      .vision-section {
+        padding: 60px 30px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar {
+        padding: 15px 20px;
+      }
+
+      .navbar-menu {
+        gap: 20px;
+      }
+
+      .navbar-menu li a {
+        font-size: 13px;
+      }
+
+      .section-title {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-logo">
+      <a href="Beranda.html" class="nav-link active">
+        <img src="https://cimory.com/assets/img/logo_cimory.png" alt="Cimory Logo" />
+      </a>
+    </div>
+    <ul class="navbar-menu">
+      <li><a href="Beranda.html" class="nav-link">Beranda</a></li>
+      <li><a href="Profile.html" class="nav-link">Profil</a></li>
+      <li><a href="Artikel.html" class="nav-link">Artikel</a></li>
+      <li><a href="Galeri.html" class="nav-link">Galeri</a></li>
+      <li><a href="BukuTamu.html" class="nav-link">Buku Tamu</a></li>
+      <li><a href="TentangKami.html" class="nav-link active">Tentang</a></li>
+    </ul>
+  </nav>
+
+  <!-- HEADER -->
+  <header class="page-header">
+    <h1 class="section-title">Tentang Kami</h1>
+    <p class="section-subtitle">Mengenal lebih dekat perjalanan Cimory dalam menghadirkan nutrisi terbaik bagi keluarga
+      Indonesia.</p>
+  </header>
+
+  <!-- ABOUT SECTION -->
+  <section class="about-section">
+    <div class="about-content">
+      <div class="about-text">
+        <h2>Sejarah & Perjalanan</h2>
+        <p>
+          Cimory adalah brand terkemuka di Indonesia yang berkomitmen menghadirkan produk susu dan yogurt berkualitas
+          tinggi. Berawal dari keinginan untuk membantu peternak sapi perah di Cisarua, Bogor, kami telah berkembang
+          menjadi pelopor industri dairy yang inovatif.
+        </p>
+        <p>
+          Dengan menggabungkan teknologi modern dan bahan-bahan segar pilihan, kami memastikan setiap tetes produk kami
+          memberikan kebaikan nutrisi yang optimal bagi konsumen.
+        </p>
+        <p>
+          Kami percaya bahwa gaya hidup sehat dimulai dari konsumsi makanan yang baik. Oleh karena itu, kami terus
+          berinovasi menciptakan produk yang tidak hanya lezat, tetapi juga menyehatkan.
+        </p>
+      </div>
+      <div class="about-image">
+        <img src="https://cimory.com/uploads/products/banner_category_AGKRCM1701076241.jpg" alt="Cimory Factory" />
+      </div>
+    </div>
+  </section>
+
+  <!-- VISION MISSION VALUES -->
+  <section class="vision-section">
+    <div class="vision-grid">
+      <div class="vision-card">
+        <div class="card-icon">👁️</div>
+        <h3>Visi Kami</h3>
+        <p>Menjadi produsen makanan dan minuman premium terdepan yang berkontribusi pada kesehatan dan kebahagiaan
+          masyarakat.</p>
+      </div>
+      <div class="vision-card">
+        <div class="card-icon">🚀</div>
+        <h3>Misi Kami</h3>
+        <p>Menghasilkan produk berkualitas tinggi, inovatif, dan terjangkau, serta mendukung kesejahteraan peternak
+          lokal.</p>
+      </div>
+      <div class="vision-card">
+        <div class="card-icon">❤️</div>
+        <h3>Nilai Kami</h3>
+        <p>Integritas, Kualitas, Inovasi, dan Kepedulian terhadap komunitas adalah landasan dari setiap langkah kami.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Cimory</h3>
+        <p>Innovation in Nutrition</p>
+        <p>Menghadirkan produk berkualitas untuk kesehatan keluarga Indonesia.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Produk</h3>
+        <a href="Produk.html">Yogurt Drink</a>
+        <a href="Produk.html">Greek Yogurt</a>
+        <a href="Produk.html">Yogurt Squeeze</a>
+      </div>
+      <div class="footer-section">
+        <h3>Perusahaan</h3>
+        <a href="TentangKami.html">Tentang Kami</a>
+        <a href="#">Karir</a>
+        <a href="#">Berita</a>
+      </div>
+      <div class="footer-section">
+        <h3>Kontak</h3>
+        <a href="BukuTamu.html">Buku Tamu</a>
+        <p>Email: info@cimory.com</p>
+        <p>Telepon: (021) 123-4567</p>
+        <p>Jakarta, Indonesia</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 Cimory. All Rights Reserved.</p>
+    </div>
+  </footer>
+</body>
+
+</html>

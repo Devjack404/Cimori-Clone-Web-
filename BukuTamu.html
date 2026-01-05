@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buku Tamu - Cimory</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            background: #f8f9fa;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: #3b3f7e;
+            padding: 21px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            backdrop-filter: none;
+        }
+
+        .navbar-logo img {
+            height: 45px;
+            transition: transform 0.3s ease;
+        }
+
+        .navbar-logo:hover img {
+            transform: scale(1.05);
+        }
+
+        .navbar-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .navbar-menu li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 18px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-menu li a::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #e91e63;
+            transition: width 0.3s ease;
+        }
+
+        .navbar-menu li a:hover {
+            color: #e91e63;
+        }
+
+        .navbar-menu li a:hover::after {
+            width: 100%;
+        }
+
+        .navbar-menu li a.active {
+            color: #e91e63;
+        }
+
+        .navbar-menu li a.active::after {
+            width: 100%;
+        }
+
+        /* GUESTBOOK SECTION */
+        .guestbook-section {
+            padding: 120px 60px 80px;
+            background: #f8f9fa;
+            min-height: 100vh;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 48px;
+            color: #2c2f7c;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 60px;
+        }
+
+        .guestbook-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        /* FORM SECTION */
+        .form-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .form-section h3 {
+            color: #2c2f7c;
+            font-size: 24px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #2c2f7c;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #e91e63;
+            box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-group input:hover,
+        .form-group textarea:hover {
+            border-color: #3b3f7e;
+        }
+
+        /* RADIO BUTTONS */
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .radio-item:hover {
+            background-color: #f5f7fa;
+            border-color: #e9ecef;
+        }
+
+        .radio-item input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            margin: 0;
+            accent-color: #e91e63;
+            cursor: pointer;
+            transform: scale(1.1);
+        }
+
+        .radio-item label {
+            margin: 0;
+            cursor: pointer;
+            font-weight: 500;
+            color: #2c2f7c;
+            font-size: 15px;
+        }
+
+        /* CHECKBOXES */
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .checkbox-item:hover {
+            background-color: #f5f7fa;
+            border-color: #e9ecef;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin: 0;
+            accent-color: #e91e63;
+            cursor: pointer;
+            transform: scale(1.1);
+        }
+
+        .checkbox-item label {
+            margin: 0;
+            cursor: pointer;
+            font-weight: 500;
+            color: #2c2f7c;
+            font-size: 15px;
+        }
+
+        /* SELECT DROPDOWN */
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: inherit;
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-group select:focus {
+            outline: none;
+            border-color: #e91e63;
+            box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .form-group select:hover {
+            border-color: #3b3f7e;
+        }
+
+        /* LOADING STATE */
+        .submit-btn.loading {
+            background: #ccc;
+            cursor: not-allowed;
+            position: relative;
+        }
+
+        .submit-btn.loading::after {
+            content: "";
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            margin: auto;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+        }
+
+        /* ANIMATIONS */
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-8px);
+            }
+
+            60% {
+                transform: translateY(-4px);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* SUCCESS MESSAGE */
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #c3e6cb;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .success-message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* RESPONSIVE FOR CHECKBOXES */
+        @media (max-width: 480px) {
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px 20px;
+            background: #e91e63;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .submit-btn:hover {
+            background: #ad1457;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(233, 30, 99, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* MESSAGES SECTION */
+        .messages-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .messages-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .messages-section h3 {
+            color: #2c2f7c;
+            font-size: 24px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .messages-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            max-height: 600px;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+
+        .messages-grid::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .messages-grid::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .messages-grid::-webkit-scrollbar-thumb {
+            background: #e91e63;
+            border-radius: 10px;
+        }
+
+        .messages-grid::-webkit-scrollbar-thumb:hover {
+            background: #ad1457;
+        }
+
+        .message-card {
+            background: #f5f7fa;
+            border-radius: 16px;
+            padding: 24px;
+            border-left: 4px solid #e91e63;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .message-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-color: #e91e63;
+            background: white;
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .message-author {
+            color: #2c2f7c;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .message-date {
+            color: #666;
+            font-size: 13px;
+            background: rgba(233, 30, 99, 0.1);
+            padding: 4px 8px;
+            border-radius: 8px;
+            white-space: nowrap;
+        }
+
+        .message-content {
+            color: #555;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .empty-message {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 40px 20px;
+            background: #f5f7fa;
+            border-radius: 16px;
+            border: 2px dashed #e9ecef;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .navbar-menu {
+                gap: 20px;
+            }
+
+            .navbar-menu li a {
+                font-size: 14px;
+            }
+
+            .guestbook-section {
+                padding: 100px 20px 60px;
+            }
+
+            .guestbook-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                max-width: 500px;
+            }
+
+            .form-section,
+            .messages-section {
+                padding: 30px 24px;
+            }
+
+            .section-title {
+                font-size: 36px;
+                line-height: 1.2;
+            }
+
+            .section-subtitle {
+                font-size: 16px;
+                margin-bottom: 40px;
+            }
+
+            .form-section h3,
+            .messages-section h3 {
+                font-size: 22px;
+                margin-bottom: 24px;
+            }
+
+            .form-group {
+                margin-bottom: 20px;
+            }
+
+            .radio-group,
+            .checkbox-group {
+                gap: 10px;
+            }
+
+            .radio-item,
+            .checkbox-item {
+                padding: 10px 12px;
+            }
+
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+
+            .messages-grid {
+                max-height: 500px;
+                gap: 20px;
+            }
+
+            .message-card {
+                padding: 20px;
+            }
+
+            .message-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .message-date {
+                align-self: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 12px 20px;
+            }
+
+            .navbar-logo img {
+                height: 35px;
+            }
+
+            .navbar-menu {
+                gap: 15px;
+            }
+
+            .navbar-menu li a {
+                font-size: 13px;
+            }
+
+            .guestbook-section {
+                padding: 90px 15px 50px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .section-subtitle {
+                font-size: 14px;
+            }
+
+            .form-section,
+            .messages-section {
+                padding: 24px 18px;
+            }
+
+            .form-section h3,
+            .messages-section h3 {
+                font-size: 20px;
+            }
+
+            .form-group input,
+            .form-group textarea,
+            .form-group select {
+                padding: 10px 12px;
+                font-size: 14px;
+            }
+
+            .submit-btn {
+                padding: 12px 16px;
+                font-size: 14px;
+            }
+
+            .messages-grid {
+                max-height: 400px;
+            }
+
+            .message-card {
+                padding: 16px;
+            }
+
+            .message-author {
+                font-size: 14px;
+            }
+
+            .message-content {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-logo">
+            <a href="Beranda.html" class="nav-link active">
+                <img src="https://cimory.com/assets/img/logo_cimory.png" alt="Cimory Logo" />
+            </a>
+        </div>
+        <ul class="navbar-menu">
+            <li><a href="Beranda.html" class="nav-link">Beranda</a></li>
+            <li><a href="Profile.html" class="nav-link">Profil</a></li>
+            <li><a href="Artikel.html" class="nav-link">Artikel</a></li>
+            <li><a href="Galeri.html" class="nav-link">Galeri</a></li>
+            <li><a href="BukuTamu.html" class="nav-link">Buku Tamu</a></li>
+            <li><a href="TentangKami.html" class="nav-link">Tentang</a></li>
+        </ul>
+    </nav>
+
+    <!-- GUESTBOOK SECTION -->
+    <section class="guestbook-section">
+        <h2 class="section-title">Buku Tamu</h2>
+        <p class="section-subtitle">
+            Tinggalkan pesan dan kesan Anda tentang website dan produk Cimory
+        </p>
+
+        <div class="guestbook-container">
+            <!-- FORM SECTION -->
+            <div class="form-section">
+                <h3>Tinggalkan Pesan</h3>
+                <form id="guestbookForm">
+                    <div class="form-group">
+                        <label for="nama">Nama Lengkap</label>
+                        <input type="text" id="nama" name="nama" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Jenis Kelamin</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="laki-laki" name="jenis_kelamin" value="Laki-laki" required />
+                                <label for="laki-laki">Laki-laki</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="perempuan" name="jenis_kelamin" value="Perempuan" required />
+                                <label for="perempuan">Perempuan</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Aktif pada sosial media</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="facebook" name="sosial_media" value="Facebook" />
+                                <label for="facebook">Facebook</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="instagram" name="sosial_media" value="Instagram" />
+                                <label for="instagram">Instagram</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="twitter" name="sosial_media" value="Twitter" />
+                                <label for="twitter">Twitter</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="lainnya" name="sosial_media" value="Lainnya" />
+                                <label for="lainnya">Lainnya</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sumber_info">Mengetahui website ini dari</label>
+                        <select id="sumber_info" name="sumber_info" required>
+                            <option value="">Pilih sumber informasi</option>
+                            <option value="Web Udinus">Web Udinus</option>
+                            <option value="Youtube">Youtube</option>
+                            <option value="Tiktok">Tiktok</option>
+                            <option value="Google Search">Google Search</option>
+                            <option value="Teman/Keluarga">Teman/Keluarga</option>
+                            <option value="Lainnya">Lainnya</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pesan">Pesan & Kesan</label>
+                        <textarea id="pesan" name="pesan"
+                            placeholder="Tuliskan pesan, kesan, atau saran Anda tentang website dan produk Cimory..."
+                            required maxlength="500"></textarea>
+                        <div style="text-align: right; font-size: 12px; color: #666; margin-top: 4px;" id="charCounter">
+                            0/500</div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Kirim Pesan</button>
+                </form>
+            </div>
+
+            <!-- MESSAGES SECTION -->
+            <div class="messages-section">
+                <h3>Pesan Pengunjung</h3>
+                <div class="messages-grid" id="messagesContainer">
+                    <div class="empty-message">
+                        Belum ada pesan. Jadilah yang pertama untuk meninggalkan kesan!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // LocalStorage Key
+        const STORAGE_KEY = 'cimory_guestbook_messages';
+
+        // Load messages on start
+        function loadMessages() {
+            const messages = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            const container = document.getElementById('messagesContainer');
+
+            // Clear current container except empty message if needed, but easier to just clear all if we have messages
+            if (messages.length > 0) {
+                // Remove empty message placeholder if it exists
+                const emptyMsg = container.querySelector('.empty-message');
+                if (emptyMsg) emptyMsg.remove();
+
+                // Render all messages
+                messages.forEach(msg => {
+                    const card = createMessageElement(msg);
+                    container.appendChild(card);
+                });
+            }
+        }
+
+        // Save new message
+        function saveMessage(data) {
+            const messages = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            messages.unshift(data); // Add to beginning
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+        }
+
+        // Delete message
+        function deleteMessage(id, element) {
+            if (!confirm('Apakah Anda yakin ingin menghapus pesan ini?')) return;
+
+            let messages = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            messages = messages.filter(msg => msg.id !== id);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+
+            // Animate removal
+            element.style.transform = 'scale(0.9) translateX(20px)';
+            element.style.opacity = '0';
+            setTimeout(() => {
+                element.remove();
+                // Show empty message if no messages left
+                if (messages.length === 0) {
+                    const container = document.getElementById('messagesContainer');
+                    container.innerHTML = `
+                        <div class="empty-message">
+                            Belum ada pesan. Jadilah yang pertama untuk meninggalkan kesan!
+                        </div>
+                     `;
+                }
+            }, 300);
+        }
+
+        // Create HTML string for message
+        function createMessageElement(data) {
+            const messageCard = document.createElement('div');
+            messageCard.className = 'message-card';
+
+            // Create content
+            let messageContent = `
+                <div style="margin-bottom: 12px;">
+                    <strong style="color: #2c2f7c; font-size: 14px;">Pesan & Kesan:</strong>
+                    <p style="margin: 8px 0 0 0; color: #555;">${data.pesan}</p>
+                </div>
+            `;
+
+            if (data.jenisKelamin) {
+                messageContent += `
+                    <div style="margin-bottom: 8px;">
+                        <strong style="color: #2c2f7c; font-size: 14px;">Jenis Kelamin:</strong>
+                        <span style="color: #555; margin-left: 8px;">${data.jenisKelamin}</span>
+                    </div>
+                `;
+            }
+
+            if (data.sosialMedia && data.sosialMedia.length > 0) {
+                messageContent += `
+                    <div style="margin-bottom: 8px;">
+                        <strong style="color: #2c2f7c; font-size: 14px;">Sosial Media:</strong>
+                        <span style="color: #555; margin-left: 8px;">${data.sosialMedia.join(', ')}</span>
+                    </div>
+                `;
+            }
+
+            if (data.sumberInfo) {
+                messageContent += `
+                    <div style="margin-bottom: 8px;">
+                        <strong style="color: #2c2f7c; font-size: 14px;">Sumber Info:</strong>
+                        <span style="color: #555; margin-left: 8px;">${data.sumberInfo}</span>
+                    </div>
+                `;
+            }
+
+            messageCard.innerHTML = `
+                <div class="message-header">
+                    <div class="message-author">${data.nama}</div>
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <div class="message-date">${data.date}</div>
+                        <button class="delete-btn" style="background:none; border:none; color:#999; cursor:pointer; font-size:16px;" title="Hapus Pesan">×</button>
+                    </div>
+                </div>
+                <div style="margin-bottom: 8px;">
+                    <small style="color: #666; font-size: 13px;">📧 ${data.email}</small>
+                </div>
+                <div class="message-content">${messageContent}</div>
+            `;
+
+            // Attach delete handler
+            const deleteBtn = messageCard.querySelector('.delete-btn');
+            deleteBtn.onclick = () => deleteMessage(data.id, messageCard);
+            deleteBtn.onmouseenter = (e) => e.target.style.color = '#e91e63';
+            deleteBtn.onmouseleave = (e) => e.target.style.color = '#999';
+
+            return messageCard;
+        }
+
+        // JavaScript untuk menangani form buku tamu
+        document.getElementById('guestbookForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Validasi form
+            if (!validateForm()) {
+                return;
+            }
+
+            // Menampilkan loading state dengan animasi yang lebih baik
+            const submitBtn = document.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            submitBtn.innerHTML = '<span style="display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: white; animation: spin 1s linear infinite; margin-right: 8px;"></span>Mengirim...';
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
+
+            // Animasi form field yang sedang di-submit
+            const formFields = this.querySelectorAll('input, textarea, select');
+            formFields.forEach(field => {
+                field.style.opacity = '0.7';
+                field.style.transform = 'scale(0.98)';
+            });
+
+            // Simulasi delay pengiriman (bisa diganti dengan API call)
+            setTimeout(() => {
+                // Mengambil data dari form
+                const nama = document.getElementById('nama').value;
+                const email = document.getElementById('email').value;
+                const jenisKelamin = document.querySelector('input[name="jenis_kelamin"]:checked')?.value || '';
+                const sosialMedia = Array.from(document.querySelectorAll('input[name="sosial_media"]:checked')).map(cb => cb.value);
+                const sumberInfo = document.getElementById('sumber_info').value;
+                const pesan = document.getElementById('pesan').value;
+
+                const now = new Date();
+                const dateOptions = {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                };
+
+                const dataObj = {
+                    id: Date.now(), // simple unique id
+                    nama,
+                    email,
+                    jenisKelamin,
+                    sosialMedia,
+                    sumberInfo,
+                    pesan,
+                    date: now.toLocaleDateString('id-ID', dateOptions)
+                };
+
+                // Save to local storage
+                saveMessage(dataObj);
+
+                // Menambahkan pesan ke container
+                const messagesContainer = document.getElementById('messagesContainer');
+
+                // Menghapus pesan "belum ada pesan" jika ada dengan animasi
+                const emptyMessage = messagesContainer.querySelector('.empty-message');
+                if (emptyMessage) {
+                    emptyMessage.style.transition = 'all 0.3s ease';
+                    emptyMessage.style.opacity = '0';
+                    emptyMessage.style.transform = 'scale(0.9)';
+                    setTimeout(() => {
+                        emptyMessage.remove();
+                    }, 300);
+                }
+
+                // Reset form dengan animasi
+                formFields.forEach(field => {
+                    field.style.opacity = '1';
+                    field.style.transform = 'scale(1)';
+                    field.style.transition = 'all 0.3s ease';
+                });
+                this.reset();
+                // Reset char counter
+                document.getElementById('charCounter').textContent = '0/500';
+
+
+                // Reset submit button dengan efek success
+                submitBtn.innerHTML = '✓ Berhasil Dikirim!';
+                submitBtn.style.background = '#28a745';
+                submitBtn.style.transform = 'scale(1.02)';
+
+                setTimeout(() => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.style.background = '#e91e63';
+                    submitBtn.style.transform = 'scale(1)';
+                    submitBtn.classList.remove('loading');
+                    submitBtn.disabled = false;
+                }, 2000);
+
+                // Create and animate new element
+                const messageCard = createMessageElement(dataObj);
+                messageCard.style.opacity = '0';
+                messageCard.style.transform = 'translateY(-20px) scale(0.95)';
+
+                // Menambahkan pesan baru di awal
+                messagesContainer.insertBefore(messageCard, messagesContainer.firstChild);
+
+                setTimeout(() => {
+                    messageCard.style.transition = 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    messageCard.style.opacity = '1';
+                    messageCard.style.transform = 'translateY(0) scale(1)';
+                }, 100);
+
+                // Tampilkan success message yang lebih menarik
+                showEnhancedSuccessMessage();
+
+            }, 1500); // 1.5s delay
+        });
+
+        // Fungsi validasi form
+        function validateForm() {
+            const nama = document.getElementById('nama').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const pesan = document.getElementById('pesan').value.trim();
+            const jenisKelamin = document.querySelector('input[name="jenis_kelamin"]:checked');
+            const sumberInfo = document.getElementById('sumber_info').value;
+
+            // Validasi nama
+            if (!nama) {
+                alert('Silakan masukkan nama lengkap Anda.');
+                document.getElementById('nama').focus();
+                return false;
+            }
+
+            // Validasi email
+            if (!email) {
+                alert('Silakan masukkan email Anda.');
+                document.getElementById('email').focus();
+                return false;
+            }
+
+            // Validasi format email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Silakan masukkan format email yang valid.');
+                document.getElementById('email').focus();
+                return false;
+            }
+
+            // Validasi jenis kelamin
+            if (!jenisKelamin) {
+                alert('Silakan pilih jenis kelamin Anda.');
+                return false;
+            }
+
+            // Validasi sumber informasi
+            if (!sumberInfo) {
+                alert('Silakan pilih sumber informasi.');
+                document.getElementById('sumber_info').focus();
+                return false;
+            }
+
+            // Validasi pesan
+            if (!pesan) {
+                alert('Silakan masukkan pesan dan kesan Anda.');
+                document.getElementById('pesan').focus();
+                return false;
+            }
+
+            if (pesan.length < 10) {
+                alert('Pesan harus minimal 10 karakter.');
+                document.getElementById('pesan').focus();
+                return false;
+            }
+
+            return true;
+        }
+
+        // Fungsi menampilkan enhanced success message
+        function showEnhancedSuccessMessage() {
+            // Hapus success message yang ada jika ada
+            const existingMessage = document.querySelector('.success-message');
+            if (existingMessage) {
+                existingMessage.style.transition = 'all 0.3s ease';
+                existingMessage.style.opacity = '0';
+                existingMessage.style.transform = 'translateY(-20px) scale(0.9)';
+                setTimeout(() => {
+                    existingMessage.remove();
+                }, 300);
+            }
+
+            // Buat enhanced success message baru
+            const successMessage = document.createElement('div');
+            successMessage.className = 'success-message';
+            successMessage.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #28a745, #20c997); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 20px; animation: pulse 0.6s ease-out;">✓</div>
+                    <div>
+                        <div style="font-weight: 600; color: #155724; font-size: 16px;">Pesan Berhasil Dikirim!</div>
+                        <div style="color: #666; font-size: 14px; margin-top: 4px;">Terima kasih atas kesan dan saran Anda. Pesan akan ditampilkan di sebelah kanan.</div>
+                    </div>
+                </div>
+            `;
+
+            // Insert sebelum form
+            const formSection = document.querySelector('.form-section');
+            formSection.parentNode.insertBefore(successMessage, formSection);
+
+            // Tampilkan dengan animasi yang lebih smooth
+            successMessage.style.opacity = '0';
+            successMessage.style.transform = 'translateY(-30px) scale(0.9)';
+            successMessage.style.transition = 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+
+            setTimeout(() => {
+                successMessage.style.opacity = '1';
+                successMessage.style.transform = 'translateY(0) scale(1)';
+            }, 100);
+
+            // Animasi pulse untuk icon
+            const icon = successMessage.querySelector('div > div:first-child');
+            icon.style.animation = 'pulse 0.6s ease-out, bounce 1s ease-in-out 0.6s 2';
+
+            // Sembunyikan setelah 6 detik
+            setTimeout(() => {
+                successMessage.style.opacity = '0';
+                successMessage.style.transform = 'translateY(-20px) scale(0.9)';
+                setTimeout(() => {
+                    if (successMessage.parentNode) {
+                        successMessage.remove();
+                    }
+                }, 500);
+            }, 6000);
+        }
+
+        // Fungsi menampilkan success message (legacy - untuk kompatibilitas)
+        function showSuccessMessage() {
+            showEnhancedSuccessMessage();
+        }
+
+        // JavaScript untuk interaktivitas form
+        document.addEventListener('DOMContentLoaded', function () {
+            // Load messages
+            loadMessages();
+
+            // Tambah hover effect untuk radio dan checkbox items
+            const radioItems = document.querySelectorAll('.radio-item');
+            const checkboxItems = document.querySelectorAll('.checkbox-item');
+
+            radioItems.forEach(item => {
+                item.addEventListener('click', function (e) {
+                    // Fix: Stop if target is already the input or label to avoid double toggle or event conflicts
+                    if (e.target.tagName === 'INPUT' || e.target.tagName === 'LABEL') return;
+
+                    const radio = this.querySelector('input[type="radio"]');
+                    radio.checked = true;
+                });
+            });
+
+            checkboxItems.forEach(item => {
+                item.addEventListener('click', function (e) {
+                    // Fix: Stop if target is already the input or label
+                    if (e.target.tagName === 'INPUT' || e.target.tagName === 'LABEL') return;
+
+                    const checkbox = this.querySelector('input[type="checkbox"]');
+                    checkbox.checked = !checkbox.checked;
+                });
+            });
+
+            // Auto-resize textarea & Character Counter
+            const textarea = document.getElementById('pesan');
+            const charCounter = document.getElementById('charCounter');
+
+            textarea.addEventListener('input', function () {
+                // Resize
+                this.style.height = 'auto';
+                this.style.height = this.scrollHeight + 'px';
+
+                // Counter
+                const len = this.value.length;
+                charCounter.textContent = `${len}/500`;
+                if (len >= 500) {
+                    charCounter.style.color = 'red';
+                } else {
+                    charCounter.style.color = '#666';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
